@@ -1,0 +1,34 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetCity();
+    });
+
+    function GetCity() {
+        $.get("/Home/GetCity",
+        {
+            StateId: $("#State").val()
+
+        }, function (data) {
+            $("#cityPartial").html(data);
+        })
+    }
+</script>
+
+<h2>Index</h2>
+
+State:
+<br/>
+@Html.DropDownList("State", @Model, null, new { @class = "dropdown", onchange = "GetCity()" })
+<br />
+City:
+<br />
+<div id="cityPartial">
+
+</div>
